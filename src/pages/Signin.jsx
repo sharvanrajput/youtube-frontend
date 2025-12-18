@@ -23,7 +23,7 @@ const Signin = () => {
 
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  const { userData, loading } = useSelector(state => state.user)
+  const { loading } = useSelector(state => state.user)
   const [inputs, setInputs] = useState({
     email: "",
     password: ""
@@ -35,29 +35,27 @@ const Signin = () => {
   }
 
   const submitHandler = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+
     try {
       const res = await dispatch(login(inputs)).unwrap();
-      await dispatch(me()).unwrap()
-      toast.success(`login successfull`)
-      navigate("/")
-      setInputs({
-        name: "",
-        email: "",
-        password: ""
-      });
+
+      if (res.success) {
+        setTimeout(() => {
+          navigate("/");
+        }, 500);
+        toast.success("Login successful");
+        dispatch(me())
+      } else {
+        toast.error(res.message || "Login failed");
+      }
 
     } catch (error) {
-      console.log(error);
+      toast.error(error?.message || "Something went wrong");
     }
+  };
 
-  }
 
-  useEffect(() => {
-    if (userData?.name) {
-
-    }
-  }, [userData])
 
   return (
     <div className='min-h-screen flex justify-center items-center'>

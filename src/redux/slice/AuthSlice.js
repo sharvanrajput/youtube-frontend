@@ -39,7 +39,7 @@ export const login = createAsyncThunk(
   async (data, thunkAPI) => {
     try {
       const res = await api.post("/user/login", data)
-      return res.data.data
+      return res.data
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data)
     }
@@ -56,6 +56,44 @@ export const GoogleLogin = createAsyncThunk(
     }
   }
 )
+
+
+export const ForgotPass = createAsyncThunk(
+  "forgotpass",
+  async (data, thunkAPI) => {
+    try {
+      const res = await api.post("/user/forgototppass", data)
+      return res.data.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data)
+    }
+  }
+)
+
+export const VerifyOtp = createAsyncThunk(
+  "verifyotp", 
+  async (data, thunkAPI) => {
+    try {
+      const res = await api.post("/user/enterotp", data)
+      return res.data.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data)
+    }
+  }
+)
+
+export const NewPassword = createAsyncThunk(
+  "newpassword",
+  async (data, thunkAPI) => {
+    try {
+      const res = await api.post("/user/newpassword", data)
+      return res.data.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data)
+    }
+  }
+)
+
 
 const initialState = {
   userData: null,
@@ -125,6 +163,40 @@ export const userSlice = createSlice({
         state.loading = false
         state.error = action.payload
       })
+
+      .addCase(ForgotPass.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(ForgotPass.fulfilled, (state, action) => {
+        state.loading = false
+      })
+      .addCase(ForgotPass.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      
+      .addCase(VerifyOtp.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(VerifyOtp.fulfilled, (state, action) => {
+        state.loading = false
+      })
+      .addCase(VerifyOtp.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+
+      .addCase(NewPassword.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(NewPassword.fulfilled, (state, action) => {
+        state.loading = false
+      })
+      .addCase(NewPassword.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+
   }
 
 })
