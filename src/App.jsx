@@ -12,6 +12,9 @@ import { Search } from 'lucide-react'
 import Shorts from './pages/Shorts'
 import MobileProfile from './pages/MobileProfile'
 import ForgotPassword from './pages/ForgotPassword'
+import CreateChannel from './pages/channel/CreateChannel'
+import ViewChannel from './pages/channel/ViewChannel'
+import UpdateChannel from './pages/channel/UpdateChannel'
 
 const App = () => {
   const { userData } = useSelector(state => state.user)
@@ -36,11 +39,14 @@ const App = () => {
         <Route path='/shorts' element={<Shorts />} />
         <Route path='/mobilepro' element={<MobileProfile />} />
         <Route path='/search' element={<Search />} />
+        <Route path='/viewchannel' element={<ViewChannel />} />
       </Route>
 
+      <Route path='/updatechannel' element={<UpdateChannel />} />
       <Route path='/signin' element={<Signin />} />
       <Route path='/forgotpass' element={<ForgotPassword />} />
       <Route path='/signup' element={<Signup />} />
+      <Route path='/createchannel' element={<CreateChannel />} />
 
     </Routes>
   )

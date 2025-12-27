@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react'
+import { useState } from 'react';
 import { FiMenu } from "react-icons/fi";
 import { Button } from './ui/button';
 
-import { Input } from './ui/input';
-import { Cross, LogOut, MilkIcon, Plus, Search, User } from 'lucide-react';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { FaMicrophone } from "react-icons/fa6";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
-import { SidebarTrigger, useSidebar } from './ui/sidebar';
-import { useDispatch, useSelector } from 'react-redux';
-import logo from "../assets/favicon.png"
-import { Link, useNavigate } from 'react-router-dom';
-import Mobolenav from './Mobolenav';
-import { IoMdClose } from "react-icons/io";
-import Categoryes from './Categoryes';
-import { FcGoogle } from 'react-icons/fc';
-import { MdOutlineSwitchAccount } from 'react-icons/md';
-import { SiYoutubestudio } from 'react-icons/si';
 import { GoogleLogin, logout, me } from '@/redux/slice/AuthSlice';
 import { signInWithPopup } from 'firebase/auth';
+import { LogOut, Plus, Search, User } from 'lucide-react';
+import { useTheme } from '@/components/ThemeProvider';
+import { FaMicrophone } from "react-icons/fa6";
+import { FcGoogle } from 'react-icons/fc';
+import { IoMdClose } from "react-icons/io";
+import { MdOutlineSwitchAccount } from 'react-icons/md';
+import { SiYoutubestudio } from 'react-icons/si';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth, authProvider } from '../../utils/firebase';
+import logo from "../assets/favicon.png";
+import Mobolenav from './Mobolenav';
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
+import { Input } from './ui/input';
+import { useSidebar } from './ui/sidebar';
 
 
 const Navbar = () => {
@@ -28,6 +28,7 @@ const Navbar = () => {
   const dispatch = useDispatch()
   const [showSearch, setShowSearch] = useState(false)
   const navigate = useNavigate()
+  const { setTheme } = useTheme()
 
   const googleauth = async () => {
     try {
@@ -48,7 +49,7 @@ const Navbar = () => {
 
   return (
     <>
-      <header className='   bg-white sticky   top-0 w-full z-20'>
+      <header className='   bg-background sticky   top-0 w-full z-20'>
         <nav className='flex px-2  md:justify-between border-b  py-2 justify-between items-center'>
 
           <div className='flex gap-2 items-center'>
@@ -87,7 +88,7 @@ const Navbar = () => {
 
           <div className='items-center md:flex hidden  gap-3'>
 
-            {userData?.account && <Button className={"rounded-full"} variant={"secondary"}>
+            {userData?.channel && <Button className={"rounded-full"} variant={"secondary"} >
               <Plus /> Create
             </Button>
             }
@@ -110,9 +111,12 @@ const Navbar = () => {
                   <div>
                     <DropdownMenuItem className={"py-0 hover:bg-background font-bold text-primary focus:bg-background"}>{userData?.name}</DropdownMenuItem>
                     <DropdownMenuItem className={"py-0 hover:bg-background  focus:bg-background"}>{userData?.email}</DropdownMenuItem>
-                    <DropdownMenuItem className={"py-0 text-blue-500 hover:text-blue-600! text-xs hover:bg-background focus:bg-background"}>{userData?.channel ? "Vire Channal" : "Create Channel"}</DropdownMenuItem>
+                    <DropdownMenuItem className={"py-0 text-blue-500 hover:text-blue-600! text-xs hover:bg-background cursor-pointer focus:bg-background"}
+                      onClick={() => { userData?.channel ? navigate("/viewchannel") : navigate("/createchannel") }}
+                    >{userData?.channel ? "Vire Channal" : "Create Channel"}</DropdownMenuItem>
                   </div>
                 </div>}
+
                 {userData && <DropdownMenuSeparator />}
 
                 {!userData &&
@@ -128,6 +132,16 @@ const Navbar = () => {
                     </DropdownMenuItem>
                   </>
                 }
+
+                <DropdownMenuItem onClick={() => setTheme("light")}>
+                  Light
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTheme("dark")}>
+                  Dark
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setTheme("system")}>
+                  System
+                </DropdownMenuItem>
 
                 {userData?.channel && <DropdownMenuItem>  <SiYoutubestudio /> Pt Studio</DropdownMenuItem>}
 

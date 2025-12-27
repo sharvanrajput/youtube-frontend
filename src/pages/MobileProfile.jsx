@@ -18,6 +18,7 @@ const MobileProfile = () => {
   const dispatch = useDispatch()
   const [showSearch, setShowSearch] = useState(false)
   const navigate = useNavigate()
+  
 
   const googleauth = async () => {
     try {
@@ -28,7 +29,7 @@ const MobileProfile = () => {
       const profile = res && res.user.photoURL
       if (name && email && profile) {
         await dispatch(GoogleLogin({ name, email, profile })).unwrap();
-        await dispatch(me()).unwrap();
+        dispatch(me())
       }
     } catch (error) {
       console.log(error)
@@ -46,19 +47,23 @@ const MobileProfile = () => {
         <div>
           <div className={"py-0 hover:bg-background text-xl font-bold text-primary focus:bg-background"}>{userData?.name}</div>
           <div className={"py-0 hover:bg-background text-md  focus:bg-background"}>{userData?.email}</div>
-          <p className={"py-0 text-blue-500 text-md hover:text-blue-600!  hover:bg-background focus:bg-background"}>{userData?.channel ? "Vire Channal" : "Create Channel"}</p>
+          <p className={"py-0 text-blue-500 text-md hover:text-blue-600!  hover:bg-background focus:bg-background cursor-pointer"}
+            onClick={()=>{userData?.channel ? navigate("/viewchannel") : navigate("/createchannel")}}
+          >{userData?.channel ? "Vire Channal" : "Create Channel"}</p>
         </div>
       </div>}
 
       <div className="flex gap-2 p-4 border-b overflow-auto  ">
-        <Button variant={"secondary"} className="" onClick={googleauth}><FcGoogle />    Sign in with Google Account</Button>
-        <Button variant={"secondary"} className="" onClick={() => navigate("/signup")} > <User />  Create New Account</Button>
-        <Button variant={"secondary"} className="" onClick={() => navigate("/signin")} > <MdOutlineSwitchAccount /> Sign in with Other account</Button>
+        {!userData && <>
+          <Button variant={"secondary"} className="" onClick={googleauth}><FcGoogle />    Sign in with Google Account</Button>
+          <Button variant={"secondary"} className="" onClick={() => navigate("/signup")} > <User />  Create New Account</Button>
+          <Button variant={"secondary"} className="" onClick={() => navigate("/signin")} > <MdOutlineSwitchAccount /> Sign in with Other account</Button>
+        </>}
         <Button variant={"secondary"} className="" onClick={() => navigate("")} > <SiYoutubestudio />Pt Studio</Button>
         <Button variant={"secondary"} className="" onClick={() => (dispatch(logout()))} > <LogOut /> Sign Out</Button>
       </div>
-      <div className='mt-5'>
 
+      <div className='mt-5'>
         <div>
           <ProfileAction icon={<FaHistory />} text={"History"} />
         </div>
