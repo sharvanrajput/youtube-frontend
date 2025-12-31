@@ -13,6 +13,18 @@ export const createYoutubeChannel = createAsyncThunk(
   }
 )
 
+export const UpdateuserChannel = createAsyncThunk(
+  "updatechannel",
+  async (formData, thunkAPI) => {
+    try {
+      const res = await api.patch("/channel/update", formData)
+      return res.data.data
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data)
+    }
+  }
+)
+
 const initialState = {
   channelData: null,
   loading: false,
@@ -31,6 +43,16 @@ export const channelSlice = createSlice({
         state.loading = false
       })
       .addCase(createYoutubeChannel.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+      })
+      .addCase(UpdateuserChannel.pending, (state, action) => {
+        state.loading = true
+      })
+      .addCase(UpdateuserChannel.fulfilled, (state, action) => {
+        state.loading = false
+      })
+      .addCase(UpdateuserChannel.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
       })

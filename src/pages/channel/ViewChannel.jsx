@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Select,
   SelectContent,
@@ -13,6 +13,7 @@ import { RiUserUnfollowLine } from "react-icons/ri";
 import { HiOutlineBell, HiOutlineBellAlert, HiOutlineBellSlash } from "react-icons/hi2";
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { Button } from '@/components/ui/button'
 
 const ViewChannel = () => {
   const { userData } = useSelector(state => state.user)
@@ -25,7 +26,7 @@ const ViewChannel = () => {
     if (!userData?.channel) {
       navigate("/createchannel")
     }
-    navigate("/updatechannel")
+    // navigate("/updatechannel")
 
   }, userData)
 
@@ -44,7 +45,13 @@ const ViewChannel = () => {
             <h1 className='text-2xl capitalize font-bold '>{userData?.name}</h1>
             <p className='text-sm capitalize '>@{userData?.name.split(" ")} . <span className='text-muted-foreground'> {300}k subscriber . {936} videos </span></p>
             <p className='text-sm capitalize '> <span className='text-muted-foreground'>{userData?.channel?.description}  Lorem ipsum dolor sit amet...  </span> more </p>
-            <Select value={subscriber} >
+            <div className="flex gap-2">
+              <Link to={"/updatechannel"}>
+                <Button variant={"secondary"} className={"rounded-full"} > Customize Channel </Button> </Link>
+              <Button variant={"secondary"} className={"rounded-full"}> Manage Video </Button>
+
+            </div>
+            {/* <Select value={subscriber} >
               <SelectTrigger className=" rounded-full">
                 <SelectValue placeholder="" />
               </SelectTrigger>
@@ -54,7 +61,7 @@ const ViewChannel = () => {
                 <SelectItem value="All"> <HiOutlineBellAlert /> All</SelectItem>
                 <SelectItem value="None"> <HiOutlineBellSlash /> None</SelectItem>
               </SelectContent>
-            </Select>
+            </Select> */}
           </div>
         </div>
 

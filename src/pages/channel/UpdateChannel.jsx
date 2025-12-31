@@ -15,7 +15,7 @@ import { Label } from '@/components/ui/label'
 import { User } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
-import { createYoutubeChannel } from '@/redux/slice/ChannelSlice'
+import { createYoutubeChannel, UpdateuserChannel } from '@/redux/slice/ChannelSlice'
 import { me } from '@/redux/slice/AuthSlice'
 import { ClipLoader } from 'react-spinners'
 
@@ -29,26 +29,28 @@ const UpdateChannel = () => {
   const [step, setStep] = useState(1)
   const [profile, setProfile] = useState(null)
   const [banner, setBanner] = useState(null)
-
-    const [channel, setChannel] = useState(userData?.channel?.name)
+  const [channel, setChannel] = useState(userData?.channel?.name)
   const [description, setdescription] = useState(userData?.channel?.description)
   const [category, setCategory] = useState(userData?.channel?.category)
 
-  const handleCreateChannel = async () => {
+  const haneleUpdateChannel = async () => {
     try {
       const formData = new FormData()
 
       formData.append("name", channel)
       formData.append("description", description)
       formData.append("category", category)
-      formData.append("avatar", profile)
-      formData.append("banner", banner)
+      if (profile) formData.append("avatar", profile)
+      if (banner) formData.append("banner", banner)
+     
 
-      await dispatch(createYoutubeChannel(formData)).unwrap()
+
+
+      await dispatch(UpdateuserChannel(formData)).unwrap()
       await dispatch(me()).unwrap()
       channelData && console.log(channelData)
 
-      navigate("/")
+      navigate("/viewchannel")
 
     } catch (error) {
       console.log(error)
@@ -99,15 +101,13 @@ const UpdateChannel = () => {
                 htmlFor="profile"
                 className="mb-3 border-2 border-dashed rounded-full w-[100px] h-[100px] overflow-hidden mx-auto flex items-center justify-center cursor-pointer"
               >
-                {profile ? (
-                  <img
-                    src={URL.createObjectURL(profile)}
-                    alt="profile"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <User size={50} />
-                )}
+
+                <img
+                  src={profile ? URL.createObjectURL(profile) : userData?.channel.avatar}
+                  alt="profile"
+                  className="w-full h-full object-cover"
+                />
+
 
                 <Input
                   type="file"
@@ -200,17 +200,13 @@ const UpdateChannel = () => {
                 htmlFor="profile"
                 className="mb-3 border-0 border-dashed rounded-2xl w-full h-[100px] overflow-hidden mx-auto flex items-center justify-center cursor-pointer"
               >
-                {banner ? (
-                  <img
-                    src={URL.createObjectURL(banner)}
-                    alt="profile"
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  <div className="border-2 flex justify-center items-center border-dashed rounded-2xl w-full h-[100px]">
-                    <span>Pick a BAnner</span>
-                  </div>
-                )}
+
+                <img
+                  src={banner ? URL.createObjectURL(banner) : userData?.channel?.banner}
+                  alt="profile"
+                  className="w-full h-full object-cover"
+                />
+
 
                 <Input
                   type="file"
@@ -240,17 +236,16 @@ const UpdateChannel = () => {
               <Button
                 className="w-full"
                 disabled={!channel}
-                onClick={handleCreateChannel}
+                onClick={haneleUpdateChannel}
               >
                 {loading ? <ClipLoader /> : "Continue"}
 
               </Button>
 
-              <Link to="/">
-                <Button variant="link" className="mt-2" onClick={() => setStep(2)}>
-                  Back to home
-                </Button>
-              </Link>
+
+              <Button variant="link" className="mt-2" onClick={() => setStep(2)}>
+                Back
+              </Button>
             </CardContent>
           </Card>
         )}
