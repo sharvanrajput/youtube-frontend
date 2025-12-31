@@ -4,10 +4,11 @@ import { FaHome } from 'react-icons/fa'
 import { SiYoutubeshorts } from 'react-icons/si'
 import { MdSubscriptions } from "react-icons/md";
 import { PiUserCircleFill } from "react-icons/pi";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 
 const Mobolenav = () => {
+  const navigate = useNavigate()
   return (
     <div className='fixed bottom-0 bg-backgrond w-full pt-2  border-t  md:hidden block'>
       <div className="flex py-3 justify-between items-center   relative ">
@@ -24,7 +25,7 @@ const Mobolenav = () => {
             <span className="sm:text-sm text-xs">Shorts</span>
           </div>
         </Link>
-        <div className='flex    flex-col  size-15 rounded-full   bg-secondary justify-center items-center'>
+        <div className='flex    flex-col  size-15 rounded-full   bg-secondary justify-center items-center' onClick={()=> navigate("/create")} >
           <Plus className='size-7' />
         </div>
         <div className='flex  w-[20%]  flex-col justify-center items-center'>

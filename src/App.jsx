@@ -16,6 +16,7 @@ import CreateChannel from './pages/channel/CreateChannel'
 import ViewChannel from './pages/channel/ViewChannel'
 import UpdateChannel from './pages/channel/UpdateChannel'
 import { toast } from 'sonner'
+import CreatePage from './pages/CreatePage'
 
 
 const ProdtctedRoute = ({ userdata, children }) => {
@@ -58,6 +59,7 @@ const App = () => {
         <Route path='/mobilepro' element={<ProdtctedRoute userdata={userData}> <MobileProfile /></ProdtctedRoute>} />
         <Route path='/search' element={<ProdtctedRoute userdata={userData}><Search /></ProdtctedRoute>} />
         <Route path='/viewchannel' element={<ProdtctedRoute userdata={userData} ><ViewChannel /></ProdtctedRoute>} />
+        <Route path='/create' element={<ProdtctedRoute userdata={userData} ><CreatePage /></ProdtctedRoute>} />
       </Route>
 
       <Route path='/updatechannel' element={<UpdateChannel />} />

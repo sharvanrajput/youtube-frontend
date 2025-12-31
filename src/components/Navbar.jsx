@@ -88,7 +88,7 @@ const Navbar = () => {
 
           <div className='items-center md:flex hidden  gap-3'>
 
-            {userData?.channel && <Button className={"rounded-full"} variant={"secondary"} >
+            {userData?.channel && <Button className={"rounded-full"} variant={"secondary"} onClick={()=> navigate("/create")} >
               <Plus /> Create
             </Button>
             }

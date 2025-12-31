@@ -64,8 +64,8 @@ const items2 = [
 
 export function AppSidebar() {
   return (
-    <Sidebar className="z-0 absolute" collapsible="icon">
-      <SidebarContent className="bg-background">
+    <Sidebar className="z-0 absolute shadow-r-0" collapsible="icon">
+      <SidebarContent className="bg-background ">
 
         {/* LOGO SECTION */}
         <SidebarGroup>
