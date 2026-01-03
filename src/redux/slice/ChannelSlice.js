@@ -31,7 +31,7 @@ const initialState = {
   error: null
 }
 
-export const channelSlice = createSlice({
+const channelSlice = createSlice({
   name: "channel",
   initialState,
   extraReducers: (builder) => {

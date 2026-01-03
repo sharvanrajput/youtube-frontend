@@ -17,6 +17,10 @@ import ViewChannel from './pages/channel/ViewChannel'
 import UpdateChannel from './pages/channel/UpdateChannel'
 import { toast } from 'sonner'
 import CreatePage from './pages/CreatePage'
+import CreateVideo from './pages/Video/CreateVideo'
+import CreateShorts from './pages/short/CreateShorts'
+import CreatePost from './pages/posts/CreatePost'
+import CreatePlaylist from './pages/playlist/CreatePlaylist'
 
 
 const ProdtctedRoute = ({ userdata, children }) => {
@@ -60,6 +64,10 @@ const App = () => {
         <Route path='/search' element={<ProdtctedRoute userdata={userData}><Search /></ProdtctedRoute>} />
         <Route path='/viewchannel' element={<ProdtctedRoute userdata={userData} ><ViewChannel /></ProdtctedRoute>} />
         <Route path='/create' element={<ProdtctedRoute userdata={userData} ><CreatePage /></ProdtctedRoute>} />
+        <Route path='/create-video' element={<ProdtctedRoute userdata={userData} ><CreateVideo /></ProdtctedRoute>} />
+        <Route path='/create-short' element={<ProdtctedRoute userdata={userData} ><CreateShorts /></ProdtctedRoute>} />
+        <Route path='/create-post' element={<ProdtctedRoute userdata={userData} ><CreatePost /></ProdtctedRoute>} />
+        <Route path='/create-playlist' element={<ProdtctedRoute userdata={userData} ><CreatePlaylist /></ProdtctedRoute>} />
       </Route>
 
       <Route path='/updatechannel' element={<UpdateChannel />} />

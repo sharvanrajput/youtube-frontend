@@ -11,7 +11,7 @@ import { ThemeProvider } from './components/ThemeProvider'
 createRoot(document.getElementById('root')).render(
   <Provider store={store}>
     <BrowserRouter>
-      <ThemeProvider>
+      <ThemeProvider defaultTheme="dark" >
         <App />
         <Toaster position="top-center" />
       </ThemeProvider>

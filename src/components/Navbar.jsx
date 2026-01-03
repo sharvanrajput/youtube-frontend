@@ -5,7 +5,6 @@ import { Button } from './ui/button';
 import { GoogleLogin, logout, me } from '@/redux/slice/AuthSlice';
 import { signInWithPopup } from 'firebase/auth';
 import { LogOut, Plus, Search, User } from 'lucide-react';
-import { useTheme } from '@/components/ThemeProvider';
 import { FaMicrophone } from "react-icons/fa6";
 import { FcGoogle } from 'react-icons/fc';
 import { IoMdClose } from "react-icons/io";
@@ -20,6 +19,7 @@ import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from './ui/dropdown-menu';
 import { Input } from './ui/input';
 import { useSidebar } from './ui/sidebar';
+import { useTheme } from "@/components/ThemeProvider"
 
 
 const Navbar = () => {
